@@ -24,8 +24,20 @@ const Reserva = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    fecha_reserva: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     fecha_vuelo: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    destino: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    costo: {
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     telefono: {
