@@ -5,7 +5,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const Reserva = sequelize.define(
   "Reserva",
   {
-    // aca tengo que poner la informacion de los datos en la base de dato, su tipo y eso nomas creo
+    //Los atributos del modelo se definen aquí
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -30,10 +30,6 @@ const Reserva = sequelize.define(
     },
     telefono: {
       type: DataTypes.STRING(100),
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING(50),
       allowNull: false,
     },
     estado: {
