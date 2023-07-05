@@ -13,6 +13,18 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
+//conección a la base de datos
+const { sequelize } = require("./database");
+const { error } = require("console");
+
+sequelize
+  .authenticate()
+  .then(() => console.log("Base de Datos conectada"))
+  .catch((error) => {
+    console.log(error);
+    process.exit();
+  });
+
 // Middlewares
 // TODO: Implementar middlewares
 app.use(cors());
