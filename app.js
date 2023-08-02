@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 require('dotenv').config();
 require("ejs");
-const port = process.env.PORT || 4500;
+const port = process.env.PORT || 5000;
 
 const { conexionDB } = require("./database")
 conexionDB()
