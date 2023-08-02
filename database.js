@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -7,12 +7,11 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect:
-      process.env
-        .DB_DIALECT /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */,
+    "mysql"
   }
 );
 
-const conectarDB = async () => {
+const conexionDB = async () => {
   try {
     await sequelize.authenticate();
     console.log("Base de datos Conectada");
@@ -22,7 +21,8 @@ const conectarDB = async () => {
 };
 
 module.exports = {
+  conexionDB,
   sequelize,
   DataTypes,
-  conectarDB,
+  Model,
 };

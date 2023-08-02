@@ -2,6 +2,14 @@ const Reserva = require("../models/Reserva");
 
 const ctrl = {};
 
+ctrl.renderCrearReserva = (req, res) => {
+  res.render('crear-reserva')
+}
+ctrl.renderActualizarReserva = (req, res) => {
+  const reservaId = req.params.id;
+  res.render("actualizar-reserva", { id: reservaId });
+}
+
 // ==========================================
 //         Rutas para CRUD de reservas
 // ==========================================
@@ -9,42 +17,40 @@ const ctrl = {};
 // Obtener todas las reservas
 ctrl.obtenerReservas = async (req, res) => {
   try {
-    const reservas = await Reserva.findAll({
-      where: {
-        estado: true,
-      },
-    });
-
-    return res.json(reservas);
+      const reservas = await Reserva.findAll({
+          where: {
+              estado: true
+          }
+      })
+      return res.render('index', {
+          reservas
+      });
   } catch (error) {
-    console.log("Error al obtener las reservas", error);
-    return res.status(500).json({
-      message: "Error al obtener las reservas",
-    });
+      return res.status(500).json({
+          message: 'Error al obtener las reservas'
+      });
   }
-};
+}
 // Obtener una reserva
 ctrl.obtenerReserva = async (req, res) => {
   try {
-    const { id } = req.params;
-    const reserva = await Reserva.findOne({
-      whare: {
-        estado: true,
-        id,
-      },
-    });
-    return res.json(reserva);
+      const reserva = await Reserva.findOne({
+          where: {
+              id: Number(req.params.id)
+          }
+      })
+      return res.json(reserva);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      message: "Error al obtener la reserva",
-    });
+      return res.status(500).json({
+          message: 'Error al obtener la reserva'
+      });
   }
-};
+}
 
 // Crear una reserva
 ctrl.crearReserva = async (req, res) => {
   const {
+    codigo,
     nombre,
     apellido,
     fecha_reserva,
@@ -55,10 +61,9 @@ ctrl.crearReserva = async (req, res) => {
   } = req.body;
 
   try {
-    // Se crea una nueva instancia de reserva
-    const nuevaReserva = new Reserva({
-      nombre,
+    const reserva = await Reserva.create({
       codigo: new Date().getTime(),
+      nombre,
       apellido,
       fecha_reserva,
       fecha_vuelo,
@@ -66,16 +71,14 @@ ctrl.crearReserva = async (req, res) => {
       costo,
       telefono,
     });
-
-    // Para guarda en la BD
-    await nuevaReserva.save();
-
-    return res.status(201).json({ message: "Reserva creada" });
-  } catch (error) {
-    console.log("Error al crear la reserva", error);
-    return res.status(500).json({ message: "Error al crear la reserva" });
-  }
-};
+    return res.json(reserva);
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Error al crear la reserva'
+        });
+    }
+}
 
 // Actualizar una reserva
 ctrl.actualizarReserva = async (req, res) => {
@@ -95,22 +98,24 @@ ctrl.actualizarReserva = async (req, res) => {
 };
 // Eliminar una reserva de forma lógica
 ctrl.eliminarReserva = async (req, res) => {
+  const {
+      estado
+  } = req.body;
   try {
-    const { id } = req.params;
-    if (!id) {
-      throw {
-        status: 400,
-        message: "No se envio el id de la reserva",
-      };
-    }
-    const reserva = await Reserva.findByPk(id);
-    await reserva.update({ estado: false });
-    return res.json({ message: "La reserva se eliminó" });
+      const reserva = await Reserva.update({
+          estado: false
+      }, {
+          where: {
+              id: Number(req.params.id)
+          }
+      });
+      return res.json(reserva);
   } catch (error) {
-    console.log("Error al eliminar la reserva", error);
-    return res.status(error.status || 500).json({
-      message: error.message || "Error al eliminar la reserva",
-    });
+      console.log(error)
+      return res.status(500).json({
+          message: 'Error al actualizar la reserva'
+      });
   }
-};
+}
+
 module.exports = ctrl;

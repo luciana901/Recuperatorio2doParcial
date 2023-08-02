@@ -1,32 +1,64 @@
 <%- include('partials/header') %>
 
 <div class="container">
-  <div class="row mt-5">
-    <h1 class="text-center border-botton">Lista de Reservas</h1>
-    <div class="col">
-      <div class="col-md-3 mb-2">
-        <a href="/reserva/crear" class="btn btn sm btn-primary" id>Nuevo </a>
-        <a href="/" class="btn btn-info text-light">Inicio</a>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>codigo</th>
-            <th>nombre</th>
-            <th>apellido</th>
-            <th>fecha reserva</th>
-            <th>fecha vuelo</th>
-            <th>destino</th>
-            <th>costo</th>
-            <th>telefono</th>
-          </tr>
-        </thead>
-        <tbody id="listadoReserva"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
-<script src="/public/listado-reserva.js"></script>
+  <div class="row mt-5">
+      <h1 class="text-center border-botton">Lista de Reservas</h1>
+      <div class="col">
+          <div class="col-md-3 mb-2">
+              <a href="/nueva-reserva" class="btn btn sm btn-primary" id>Nuevo </a>
+              <a href="/" class="btn btn-info text-light">Inicio</a>
+          </div>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Codigo</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>fecha_reserva</th>
+                      <th>fecha_vuelo</th>
+                      <th>destino</th>
+                      <th>costo</th>
+                      <th>telefono</th>
+                  </tr>
+              </thead>
+              <tbody id="listaReservas">
+                  <% reservas.forEach(function(reserva){ %>
+                      <tr>
+                          <td>
+                              <%= reserva.codigo %>
+                          </td>
+                          <td>
+                              <%= reserva.nombre %>
+                          </td>
+                          <td>
+                              <%= reserva.apellido %>
+                          </td>
+                          <td>
+                              <%= reserva.fecha_reserva %>
+                          </td>
+                          <td>
+                              <%= reserva.fecha_vuelo %>
+                          </td>
+                          <td>
+                              <%= reserva.destino %>
+                          </td>
+                          <td>
+                               <%= reserva.costo %>
+                          </td>
+                          <td>
+                              $ <%= reserva.telefono %>
+                          </td>
+                          <td>
+                              <a class="btn btn-danger">Eliminar</a>
+                              <a href="/actualizar-reserva/<%= reserva.id %>" class="btn btn-warning">Editar</a>
+                          </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
 
 <%- include('partials/footer') %>

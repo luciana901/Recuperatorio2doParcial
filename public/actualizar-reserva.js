@@ -1,4 +1,4 @@
-const formReserva = document.querySelector("#formNuevaReserva");
+const formReserva = document.querySelector("#formActualizarReserva");
 const reservaId = formReserva.dataset.id;
 
 const nombre = document.querySelector("#nombre");
@@ -10,11 +10,9 @@ const costo = document.querySelector("#costo");
 const telefono = document.querySelector("#telefono");
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Traemos la reserva
-  const response = await fetch(`/api/${reservaId}`);
+  const response = await fetch(`/api/reservas/${reservaId}`);
   const data = await response.json();
-
-  // Mostrar en el formulario los datos que se quieren actualizar
+  console.log(data)
   nombre.value = data.nombre;
   apellido.value = data.apellido;
   fecha_reserva.value = data.fecha_reserva;
@@ -38,8 +36,8 @@ formReserva.addEventListener("submit", async (e) => {
     telefono: telefono.value,
   };
 
-  // Se envian los datos al servidor express
-  const response = await fetch(`/api/${reservaId}`, {
+
+  const response = await fetch(`/api/reservas/${reservaId}`, {
     method: "PUT",
     body: JSON.stringify(reservaActualizada),
     headers: {
@@ -47,25 +45,9 @@ formReserva.addEventListener("submit", async (e) => {
     },
   });
 
-  const respToJson = await response.json();
+  alert('Reserva Actualizada')
 
-  if (response.status !== 200) {
-    return Swal.fire({
-      title: "Error",
-      text: respToJson.message,
-      icon: "error",
-      confirmButtonText: "Aceptar",
-    });
-  }
-
-  // Mostrar al ususario
-  Swal.fire({
-    title: "Reserva actualizada",
-    text: respToJson.message,
-    icon: "success",
-    confirmButtonText: "Aceptar",
-  });
-
+ 
   setTimeout(() => {
     window.location.href = "/";
   }, 2000);

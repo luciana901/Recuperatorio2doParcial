@@ -1,18 +1,16 @@
 // TODO: Crear modelo de datos de Reserva
-const { Sequelize } = require("sequelize");
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("../database");
 
 const Reserva = sequelize.define(
   "Reserva",
   {
-    //Los atributos del modelo se definen aquí
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     codigo: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
@@ -45,9 +43,8 @@ const Reserva = sequelize.define(
       allowNull: false,
     },
     estado: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -60,8 +57,7 @@ const Reserva = sequelize.define(
     },
     deleteAt: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+      allowNull: true
     },
   },
   {
@@ -71,3 +67,8 @@ const Reserva = sequelize.define(
     tableName: "reservas",
   }
 );
+
+Reserva.sync({ force: false }).then(() => {
+  console.log('Tabla de Reservas creada');
+});
+module.exports = Reserva;

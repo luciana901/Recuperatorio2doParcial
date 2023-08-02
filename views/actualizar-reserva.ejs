@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<main>
+  <form id="formCrearReserva">
+     <h1>Nueva Reserva</h1>
+     <div class="mb-3">
+         <label for="nombre" class="form-label">Nombre</label>
+         <input type="text" class="form-control" id="nombre">
+     </div>
+     <div class="mb-3">
+         <label for="apellido" class="form-label">Apellido</label>
+         <input type="text" class="form-control" id="apellido">
+     </div>
+     <div class="mb-3">
+         <label for="DNI" class="form-label">Fecha reserva</label>
+         <input type="text" class="form-control" id="reserva">
+     </div>
+     <div class="mb-3">
+         <label for="Ida" class="form-label">Fecha vuelo</label>
+         <input type="date" class="form-control" id="vuelo">
+     </div>
+     <div class="mb-3">
+         <label for="Vuelta" class="form-label">Destino</label>
+         <input type="date" class="form-control" id="destino">
+     </div>
+     <div class="mb-3">
+         <label for="Precio" class="form-label">Costo</label>
+         <input type="text" class="form-control" id="costo">
+     </div>
+     <div class="mb-3">
+      <label for="Precio" class="form-label">Telefono</label>
+      <input type="text" class="form-control" id="telefono">
+  </div>
+     <button type="submit" class="btn btn-primary" id="btnRegistrar">Registrar</button>
+     <a href="/" class="btn btn-secondary">Cancelar</a>
+ </form>
+</main>
+
+<script src="/public/actualizar-reserva.js"></script>
+
+<%- include('partials/footer') %>
